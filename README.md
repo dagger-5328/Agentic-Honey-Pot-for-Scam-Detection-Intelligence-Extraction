@@ -1,0 +1,2 @@
+# Agentic-Honey-Pot-for-Scam-Detection-Intelligence-Extraction
+Designing an autonomous AI honeypot system that detects scam messages and actively engages scammers using a believable persona. Once a scam is detected, the agent must continue the conversation to extract bank account details, UPI IDs, and phishing links. Interactions be simulated using Mock Scammer API, and outputs be returned JSON format.
