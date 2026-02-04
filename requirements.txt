@@ -4,6 +4,11 @@ pydantic>=2.5.0           # Data validation and JSON schemas
 pyyaml>=6.0.1             # YAML configuration parsing
 python-dotenv>=1.0.0      # Environment variable management
 
+# API Server
+flask>=3.0.0              # Web framework for REST API
+flask-cors>=4.0.0         # CORS support for API
+gunicorn>=21.2.0          # Production WSGI server
+
 # Pattern Matching & Text Processing
 regex>=2023.10.3          # Advanced regular expressions
 phonenumbers>=8.13.26     # Phone number parsing and validation
