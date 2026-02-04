@@ -1,0 +1,134 @@
+{
+  "scam_types": {
+    "banking_fraud": {
+      "keywords": [
+        "account blocked",
+        "verify account",
+        "update kyc",
+        "suspicious activity",
+        "confirm identity",
+        "account suspended",
+        "immediate action required",
+        "click here to verify",
+        "send otp",
+        "atm card blocked"
+      ],
+      "urgency_indicators": [
+        "immediately",
+        "urgent",
+        "within 24 hours",
+        "expire soon",
+        "last warning"
+      ],
+      "confidence_weight": 0.9
+    },
+    "prize_lottery": {
+      "keywords": [
+        "congratulations",
+        "you won",
+        "lottery winner",
+        "claim prize",
+        "lucky draw",
+        "selected winner",
+        "prize money",
+        "claim now",
+        "processing fee",
+        "tax payment"
+      ],
+      "urgency_indicators": [
+        "limited time",
+        "offer expires",
+        "claim within"
+      ],
+      "confidence_weight": 0.85
+    },
+    "tech_support": {
+      "keywords": [
+        "virus detected",
+        "malware found",
+        "security alert",
+        "system infected",
+        "call technical support",
+        "computer at risk",
+        "renew antivirus",
+        "subscription expired",
+        "microsoft support",
+        "apple support"
+      ],
+      "urgency_indicators": [
+        "immediate action",
+        "call now",
+        "within minutes"
+      ],
+      "confidence_weight": 0.8
+    },
+    "impersonation": {
+      "keywords": [
+        "government official",
+        "tax department",
+        "police department",
+        "courier delivery",
+        "package waiting",
+        "customs clearance",
+        "legal notice",
+        "arrest warrant",
+        "court summons",
+        "income tax"
+      ],
+      "authority_claims": [
+        "official",
+        "department",
+        "ministry",
+        "government"
+      ],
+      "confidence_weight": 0.88
+    },
+    "investment_crypto": {
+      "keywords": [
+        "guaranteed returns",
+        "double your money",
+        "investment opportunity",
+        "crypto trading",
+        "bitcoin profit",
+        "trading bot",
+        "passive income",
+        "risk-free investment",
+        "limited slots",
+        "exclusive offer"
+      ],
+      "confidence_weight": 0.75
+    },
+    "upi_payment": {
+      "keywords": [
+        "refund pending",
+        "payment failed",
+        "transaction reversed",
+        "collect request",
+        "send money to receive",
+        "upi verification",
+        "wallet activation",
+        "cashback claim",
+        "wrong transaction",
+        "return payment"
+      ],
+      "confidence_weight": 0.82
+    }
+  },
+  "common_red_flags": [
+    "click this link",
+    "send money",
+    "share otp",
+    "provide bank details",
+    "urgent action required",
+    "limited time offer",
+    "act now",
+    "confirm your details",
+    "verify your account"
+  ],
+  "legitimate_indicators": [
+    "no payment required",
+    "official website",
+    "contact your bank directly",
+    "do not share otp"
+  ]
+}

@@ -1,0 +1,51 @@
+# Scam Honeypot Configuration
+
+# API Configuration
+api:
+  # Mock Scammer API endpoint (replace with actual endpoint)
+  base_url: "https://api.mockscammer.example.com"
+  api_key: "${SCAMMER_API_KEY}"  # Set in .env file
+  timeout: 30
+  max_retries: 3
+  use_simulator: true  # Use local simulator if true
+
+# Scam Detection Settings
+detection:
+  min_confidence_threshold: 70  # Minimum confidence to engage (0-100)
+  enabled_scam_types:
+    - banking_fraud
+    - prize_lottery
+    - tech_support
+    - impersonation
+    - investment_crypto
+    - upi_payment
+  
+# Conversation Agent Settings
+agent:
+  max_conversation_turns: 20
+  response_delay_min: 2  # Minimum seconds before responding
+  response_delay_max: 8  # Maximum seconds before responding
+  default_persona: "elderly_user"
+  enable_typos: true  # Add realistic typos for believability
+  
+# Intelligence Extraction Settings
+extraction:
+  extract_bank_accounts: true
+  extract_upi_ids: true
+  extract_phone_numbers: true
+  extract_urls: true
+  extract_emails: true
+  extract_crypto_addresses: true
+  
+# Output Settings
+output:
+  save_conversations: true
+  output_directory: "./output"
+  json_pretty_print: true
+  include_full_transcript: true
+  
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "./logs/honeypot.log"
+  console_output: true

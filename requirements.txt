@@ -1,0 +1,24 @@
+# Core Dependencies
+requests>=2.31.0          # HTTP client for API communication
+pydantic>=2.5.0           # Data validation and JSON schemas
+pyyaml>=6.0.1             # YAML configuration parsing
+python-dotenv>=1.0.0      # Environment variable management
+
+# Pattern Matching & Text Processing
+regex>=2023.10.3          # Advanced regular expressions
+phonenumbers>=8.13.26     # Phone number parsing and validation
+
+# Testing
+pytest>=7.4.3             # Testing framework
+pytest-cov>=4.1.0         # Test coverage reporting
+pytest-mock>=3.12.0       # Mocking for tests
+
+# Utilities
+colorama>=0.4.6           # Colored terminal output
+rich>=13.7.0              # Beautiful terminal formatting
+python-dateutil>=2.8.2    # Date/time utilities
+
+# Optional: Advanced NLP (uncomment if needed)
+# spacy>=3.7.2            # Named entity recognition
+# transformers>=4.36.0    # Advanced language models
+# langchain>=0.1.0        # LLM agent framework

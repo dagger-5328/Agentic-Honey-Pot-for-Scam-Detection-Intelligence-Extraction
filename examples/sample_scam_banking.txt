@@ -1,0 +1,22 @@
+Your account has been blocked due to suspicious activity detected on 03-Feb-2026. 
+
+URGENT ACTION REQUIRED!
+
+To unblock your account immediately, please verify your identity by clicking the link below:
+http://fake-bank-verify-2026.com/secure-login
+
+Alternatively, you can call our customer support at +919876543210 within the next 2 hours.
+
+If you do not verify within 24 hours, your account will be permanently suspended and all funds will be frozen.
+
+For immediate verification, send ₹500 to the following account:
+Account Number: 9876543210987654
+IFSC Code: SBIN0012345
+Bank: State Bank of India
+
+Or use UPI: verify@paytm
+
+This is an automated security message from your bank. Do not ignore this warning.
+
+Thank you,
+Security Department
