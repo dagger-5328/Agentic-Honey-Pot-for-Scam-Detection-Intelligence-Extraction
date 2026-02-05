@@ -1,21 +1,23 @@
 version: '3.8'
 
 services:
-  scam-honeypot-api:
+  guvi-honeypot-api:
     build: .
-    container_name: scam-honeypot
+    container_name: guvi-honeypot
     ports:
-      - "5000:5000"
+      - "8000:8000"
     volumes:
       - ./output:/app/output
       - ./logs:/app/logs
       - ./config:/app/config
     environment:
+      - HONEYPOT_API_KEY=${HONEYPOT_API_KEY:-your-secret-api-key-here}
       - SCAMMER_API_KEY=${SCAMMER_API_KEY:-}
       - FLASK_ENV=production
+      - PYTHONUNBUFFERED=1
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      test: [ "CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')" ]
       interval: 30s
       timeout: 10s
       retries: 3

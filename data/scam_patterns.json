@@ -11,14 +11,29 @@
         "immediate action required",
         "click here to verify",
         "send otp",
-        "atm card blocked"
+        "atm card blocked",
+        "blocked",
+        "suspended",
+        "verify",
+        "kyc update",
+        "upi pin",
+        "debit card",
+        "credit card",
+        "bank balance",
+        "unauthorized transaction",
+        "security alert",
+        "account verification",
+        "banking details"
       ],
       "urgency_indicators": [
         "immediately",
         "urgent",
         "within 24 hours",
         "expire soon",
-        "last warning"
+        "last warning",
+        "today",
+        "now",
+        "quick"
       ],
       "confidence_weight": 0.9
     },

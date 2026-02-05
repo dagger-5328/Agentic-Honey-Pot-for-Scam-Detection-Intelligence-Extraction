@@ -20,12 +20,16 @@ COPY . .
 # Create directories for output and logs
 RUN mkdir -p output logs
 
-# Expose port
-EXPOSE 5000
+# Set environment variables
+ENV HONEYPOT_API_KEY=change-this-to-a-secure-key
+ENV PYTHONUNBUFFERED=1
+
+# Expose port (GUVI API runs on 8000)
+EXPOSE 8000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD python -c "import requests; requests.get('http://localhost:5000/health')"
+    CMD python -c "import requests; requests.get('http://localhost:8000/health')"
 
-# Run with gunicorn
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "--timeout", "120", "api_server:app"]
+# Run GUVI-compliant API with gunicorn
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "--timeout", "120", "guvi_api_server:app"]
