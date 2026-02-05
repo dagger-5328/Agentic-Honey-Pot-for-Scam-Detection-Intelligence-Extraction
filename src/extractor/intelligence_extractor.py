@@ -124,17 +124,31 @@ class IntelligenceExtractor:
         # Find all potential UPI IDs
         potential_upis = re.findall(self.upi_pattern, text)
         
+        # Common email domains to exclude
+        email_domains = [
+            'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com',
+            'protonmail.com', 'icloud.com', 'aol.com', 'mail.com',
+            'zoho.com', 'yandex.com', 'rediffmail.com'
+        ]
+        
         # Filter to likely UPI IDs (common UPI handles)
         upi_handles = [
             'paytm', 'phonepe', 'googlepay', 'gpay', 'amazonpay',
             'bhim', 'ybl', 'oksbi', 'okaxis', 'okicici', 'okhdfcbank',
-            'ibl', 'axl', 'pnb', 'boi', 'cnrb'
+            'ibl', 'axl', 'pnb', 'boi', 'cnrb', 'upi', 'fbl', 'sbi',
+            'icici', 'hdfc', 'axis', 'kotak', 'federal', 'indus'
         ]
         
         upis = []
         for upi in potential_upis:
-            # Check if it ends with a known UPI handle
-            if any(handle in upi.lower() for handle in upi_handles):
+            upi_lower = upi.lower()
+            
+            # Exclude if it's a common email domain
+            if any(domain in upi_lower for domain in email_domains):
+                continue
+            
+            # Include if it has a known UPI handle
+            if any(handle in upi_lower for handle in upi_handles):
                 upis.append(upi)
         
         return list(set(upis))  # Remove duplicates

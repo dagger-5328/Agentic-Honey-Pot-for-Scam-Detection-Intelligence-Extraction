@@ -8,6 +8,9 @@ api:
   timeout: 30
   max_retries: 3
   use_simulator: true  # Use local simulator if true
+  rate_limit_requests_per_minute: 10  # Max API requests per minute
+  rate_limit_enabled: true  # Enable rate limiting
+  backoff_factor: 2  # Exponential backoff multiplier
 
 # Scam Detection Settings
 detection:
@@ -23,9 +26,14 @@ detection:
 # Conversation Agent Settings
 agent:
   max_conversation_turns: 20
+  conversation_timeout_seconds: 600  # Max 10 minutes per conversation
   response_delay_min: 2  # Minimum seconds before responding
   response_delay_max: 8  # Maximum seconds before responding
+  fast_mode: false  # Set to true to reduce delays for testing
+  fast_mode_delay_min: 0.5  # Fast mode minimum delay
+  fast_mode_delay_max: 1.5  # Fast mode maximum delay
   default_persona: "elderly_user"
+  smart_persona_selection: true  # Auto-select persona based on scam type
   enable_typos: true  # Add realistic typos for believability
   
 # Intelligence Extraction Settings

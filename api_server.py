@@ -18,6 +18,9 @@ from main import ScamHoneypot
 app = Flask(__name__)
 CORS(app)  # Enable CORS for testing
 
+# Configure request size limits (10MB max)
+app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
+
 # Initialize honeypot
 honeypot = ScamHoneypot()
 
@@ -73,11 +76,17 @@ def detect_scam():
         
         return jsonify(result), 200
         
+    except ValueError as e:
+        logger.error(f"Validation error in detect endpoint: {e}")
+        return jsonify({
+            'error': 'Invalid input',
+            'message': 'Please check your request format'
+        }), 400
     except Exception as e:
         logger.error(f"Error in detect endpoint: {e}", exc_info=True)
         return jsonify({
             'error': 'Internal server error',
-            'message': str(e)
+            'message': 'An error occurred while processing your request'
         }), 500
 
 
@@ -127,11 +136,17 @@ def engage_scammer():
             # Return the intelligence report
             return jsonify(result['report']), 200
         
+    except ValueError as e:
+        logger.error(f"Validation error in engage endpoint: {e}")
+        return jsonify({
+            'error': 'Invalid input',
+            'message': 'Please check your request format'
+        }), 400
     except Exception as e:
         logger.error(f"Error in engage endpoint: {e}", exc_info=True)
         return jsonify({
             'error': 'Internal server error',
-            'message': str(e)
+            'message': 'An error occurred while processing your request'
         }), 500
 
 
@@ -177,11 +192,17 @@ def extract_intelligence():
         
         return jsonify(intelligence), 200
         
+    except ValueError as e:
+        logger.error(f"Validation error in extract endpoint: {e}")
+        return jsonify({
+            'error': 'Invalid input',
+            'message': 'Please check your request format'
+        }), 400
     except Exception as e:
         logger.error(f"Error in extract endpoint: {e}", exc_info=True)
         return jsonify({
             'error': 'Internal server error',
-            'message': str(e)
+            'message': 'An error occurred while processing your request'
         }), 500
 
 
@@ -220,11 +241,17 @@ def list_personas():
             'personas': personas_list
         }), 200
         
+    except FileNotFoundError:
+        logger.error("Personas file not found")
+        return jsonify({
+            'error': 'Configuration error',
+            'message': 'Personas data not available'
+        }), 500
     except Exception as e:
         logger.error(f"Error in personas endpoint: {e}", exc_info=True)
         return jsonify({
             'error': 'Internal server error',
-            'message': str(e)
+            'message': 'An error occurred while retrieving personas'
         }), 500
 
 
@@ -262,11 +289,17 @@ def list_scam_types():
             'scam_types': scam_types_list
         }), 200
         
+    except FileNotFoundError:
+        logger.error("Scam patterns file not found")
+        return jsonify({
+            'error': 'Configuration error',
+            'message': 'Scam types data not available'
+        }), 500
     except Exception as e:
         logger.error(f"Error in scam-types endpoint: {e}", exc_info=True)
         return jsonify({
             'error': 'Internal server error',
-            'message': str(e)
+            'message': 'An error occurred while retrieving scam types'
         }), 500
 
 
@@ -277,6 +310,15 @@ def not_found(error):
         'error': 'Endpoint not found',
         'message': 'The requested endpoint does not exist'
     }), 404
+
+
+@app.errorhandler(413)
+def request_too_large(error):
+    """Handle request entity too large errors."""
+    return jsonify({
+        'error': 'Request too large',
+        'message': 'Request size exceeds maximum allowed limit (10MB)'
+    }), 413
 
 
 @app.errorhandler(500)

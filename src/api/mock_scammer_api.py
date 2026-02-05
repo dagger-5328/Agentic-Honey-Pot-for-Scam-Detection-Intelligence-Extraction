@@ -6,13 +6,17 @@ Integrates with Mock Scammer API for simulated scam interactions.
 import requests
 import time
 from typing import Dict, Optional
+from collections import deque
+from datetime import datetime, timedelta
 import logging
 
 
 class MockScammerAPI:
     """Client for interacting with Mock Scammer API."""
     
-    def __init__(self, base_url: str, api_key: str = None, timeout: int = 30):
+    def __init__(self, base_url: str, api_key: str = None, timeout: int = 30,
+                 rate_limit_enabled: bool = True, requests_per_minute: int = 10,
+                 backoff_factor: float = 2.0):
         """
         Initialize API client.
         
@@ -20,11 +24,20 @@ class MockScammerAPI:
             base_url: Base URL of the Mock Scammer API
             api_key: API authentication key
             timeout: Request timeout in seconds
+            rate_limit_enabled: Enable rate limiting
+            requests_per_minute: Maximum requests per minute
+            backoff_factor: Exponential backoff multiplier
         """
         self.base_url = base_url.rstrip('/')
         self.api_key = api_key
         self.timeout = timeout
         self.session_id = None
+        
+        # Rate limiting
+        self.rate_limit_enabled = rate_limit_enabled
+        self.requests_per_minute = requests_per_minute
+        self.backoff_factor = backoff_factor
+        self.request_times = deque(maxlen=requests_per_minute)
         
         # Setup logging
         self.logger = logging.getLogger(__name__)
@@ -36,6 +49,61 @@ class MockScammerAPI:
                 'Authorization': f'Bearer {api_key}',
                 'Content-Type': 'application/json'
             })
+    
+    def _wait_for_rate_limit(self):
+        """Wait if necessary to respect rate limits."""
+        if not self.rate_limit_enabled:
+            return
+        
+        now = datetime.now()
+        
+        # Remove old request times (older than 1 minute)
+        while self.request_times and (now - self.request_times[0]) > timedelta(minutes=1):
+            self.request_times.popleft()
+        
+        # If at limit, wait until oldest request is > 1 minute old
+        if len(self.request_times) >= self.requests_per_minute:
+            oldest = self.request_times[0]
+            wait_until = oldest + timedelta(minutes=1)
+            wait_seconds = (wait_until - now).total_seconds()
+            
+            if wait_seconds > 0:
+                self.logger.info(f"Rate limit reached. Waiting {wait_seconds:.1f}s")
+                time.sleep(wait_seconds)
+        
+        # Record this request
+        self.request_times.append(now)
+    
+    def _make_request_with_retry(self, method: str, url: str, max_retries: int = 3, **kwargs):
+        """Make HTTP request with exponential backoff on failures."""
+        for attempt in range(max_retries):
+            try:
+                self._wait_for_rate_limit()
+                
+                if method.lower() == 'get':
+                    response = self.session.get(url, **kwargs)
+                else:
+                    response = self.session.post(url, **kwargs)
+                
+                # Handle rate limiting from server
+                if response.status_code == 429:
+                    wait_time = self.backoff_factor ** attempt
+                    self.logger.warning(f"Rate limited by server. Waiting {wait_time}s")
+                    time.sleep(wait_time)
+                    continue
+                
+                response.raise_for_status()
+                return response
+                
+            except requests.exceptions.RequestException as e:
+                if attempt == max_retries - 1:
+                    raise
+                
+                wait_time = self.backoff_factor ** attempt
+                self.logger.warning(f"Request failed (attempt {attempt + 1}/{max_retries}). Retrying in {wait_time}s")
+                time.sleep(wait_time)
+        
+        raise requests.exceptions.RequestException("Max retries exceeded")
     
     def start_conversation(self, scam_type: str = None) -> Dict:
         """
@@ -54,12 +122,12 @@ class MockScammerAPI:
             payload['scam_type'] = scam_type
         
         try:
-            response = self.session.post(
+            response = self._make_request_with_retry(
+                'post',
                 endpoint,
                 json=payload,
                 timeout=self.timeout
             )
-            response.raise_for_status()
             
             data = response.json()
             self.session_id = data.get('session_id')
@@ -92,12 +160,12 @@ class MockScammerAPI:
         }
         
         try:
-            response = self.session.post(
+            response = self._make_request_with_retry(
+                'post',
                 endpoint,
                 json=payload,
                 timeout=self.timeout
             )
-            response.raise_for_status()
             
             return response.json()
             
@@ -124,11 +192,11 @@ class MockScammerAPI:
         time.sleep(wait_time)
         
         try:
-            response = self.session.get(
+            response = self._make_request_with_retry(
+                'get',
                 endpoint,
                 timeout=self.timeout
             )
-            response.raise_for_status()
             
             data = response.json()
             return data.get('message')

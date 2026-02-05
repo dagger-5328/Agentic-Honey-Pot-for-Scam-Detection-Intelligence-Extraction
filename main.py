@@ -162,8 +162,10 @@ class ScamHoneypot:
         scam_type = detection_result['scam_type']
         confidence = detection_result['confidence']
         
+        # Smart persona selection based on scam type
+        persona_name = self._select_persona(scam_type)
+        
         # Initialize conversation agent
-        persona_name = self.config['agent'].get('default_persona')
         agent = ConversationAgent(
             persona_name=persona_name,
             config=self.config['agent']
@@ -190,8 +192,15 @@ class ScamHoneypot:
             
             # Continue conversation
             max_turns = self.config['agent']['max_conversation_turns']
+            timeout_seconds = self.config['agent'].get('conversation_timeout_seconds', 600)
             
             for turn in range(max_turns):
+                # Check conversation timeout
+                elapsed = (datetime.now() - start_time).total_seconds()
+                if elapsed > timeout_seconds:
+                    self.logger.info(f"Conversation timeout after {elapsed:.0f} seconds")
+                    break
+                
                 # Simulate typing delay
                 agent.simulate_typing_delay()
                 
@@ -240,8 +249,24 @@ class ScamHoneypot:
             
             return report
             
+        except KeyboardInterrupt:
+            self.logger.info("Conversation interrupted by user")
+            if isinstance(self.api, APISimulator) and session_id:
+                try:
+                    self.api.end_conversation(session_id)
+                except:
+                    pass
+            raise
+        except (ConnectionError, TimeoutError) as e:
+            self.logger.error(f"Network error during conversation: {e}")
+            if isinstance(self.api, APISimulator) and session_id:
+                try:
+                    self.api.end_conversation(session_id)
+                except:
+                    pass
+            raise
         except Exception as e:
-            self.logger.error(f"Error during conversation: {e}", exc_info=True)
+            self.logger.error(f"Unexpected error during conversation: {e}", exc_info=True)
             # Clean up session if needed
             if isinstance(self.api, APISimulator) and session_id:
                 try:
@@ -267,6 +292,25 @@ class ScamHoneypot:
             # Using real API
             self.api.send_message(agent_message)
             return self.api.get_scammer_response()
+    
+    def _select_persona(self, scam_type: str) -> str:
+        """Select appropriate persona based on scam type."""
+        if not self.config['agent'].get('smart_persona_selection', False):
+            return self.config['agent'].get('default_persona', 'elderly_user')
+        
+        # Map scam types to best-suited personas
+        persona_mapping = {
+            'banking_fraud': 'elderly_user',
+            'prize_lottery': 'eager_customer',
+            'tech_support': 'elderly_user',
+            'impersonation': 'worried_parent',
+            'investment_crypto': 'eager_customer',
+            'upi_payment': 'busy_professional'
+        }
+        
+        selected = persona_mapping.get(scam_type, 'elderly_user')
+        self.logger.info(f"Smart persona selection: {selected} for {scam_type}")
+        return selected
     
     def _save_report(self, report: dict):
         """Save intelligence report to file."""
@@ -358,11 +402,17 @@ def main():
     parser.add_argument('--scenario', type=str, help='Demo scenario type')
     parser.add_argument('--input', type=str, help='Input message file')
     parser.add_argument('--config', type=str, help='Config file path')
+    parser.add_argument('--fast', action='store_true', help='Fast mode (reduced delays for testing)')
     
     args = parser.parse_args()
     
     # Initialize honeypot
     honeypot = ScamHoneypot(config_path=args.config)
+    
+    # Enable fast mode if requested
+    if args.fast:
+        honeypot.config['agent']['fast_mode'] = True
+        print("Fast mode enabled - delays reduced for testing")
     
     if args.demo:
         # Run demo

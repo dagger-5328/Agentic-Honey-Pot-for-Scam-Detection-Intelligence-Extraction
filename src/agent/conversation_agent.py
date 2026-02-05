@@ -26,14 +26,22 @@ class ConversationAgent:
         # Configuration
         self.config = config or {}
         self.max_turns = self.config.get('max_conversation_turns', 20)
-        self.response_delay_min = self.config.get('response_delay_min', 2)
-        self.response_delay_max = self.config.get('response_delay_max', 8)
+        
+        # Fast mode support
+        if self.config.get('fast_mode', False):
+            self.response_delay_min = self.config.get('fast_mode_delay_min', 0.5)
+            self.response_delay_max = self.config.get('fast_mode_delay_max', 1.5)
+        else:
+            self.response_delay_min = self.config.get('response_delay_min', 2)
+            self.response_delay_max = self.config.get('response_delay_max', 8)
+        
         self.enable_typos = self.config.get('enable_typos', True)
         
         # Conversation state
         self.conversation_history = []
         self.turn_number = 0
         self.intelligence_extracted = False
+        self.start_time = None
     
     def start_conversation(self, initial_scam_message: str, scam_type: str) -> str:
         """
@@ -46,6 +54,9 @@ class ConversationAgent:
         Returns:
             Agent's initial response
         """
+        # Track conversation start time
+        self.start_time = time.time()
+        
         # Record scammer's message
         self.conversation_history.append({
             'role': 'scammer',
@@ -183,14 +194,20 @@ class ConversationAgent:
         if not self.enable_typos:
             return response
         
+        # Don't add typos if response contains structured data
+        if any(indicator in response for indicator in ['http://', 'https://', '@', '.com', '{', '}', '[', ']']):
+            return response
+        
         # Occasionally add typos (10% chance)
         if random.random() < 0.1:
             words = response.split()
             if len(words) > 3:
-                # Pick a random word to "typo"
-                idx = random.randint(1, len(words) - 1)
+                # Pick a random word to "typo" (avoid first and last words)
+                idx = random.randint(1, len(words) - 2) if len(words) > 3 else 1
                 word = words[idx]
-                if len(word) > 4:
+                
+                # Only add typo to alphabetic words longer than 4 characters
+                if len(word) > 4 and word.isalpha():
                     # Simple typo: swap two adjacent characters
                     pos = random.randint(0, len(word) - 2)
                     word_list = list(word)
@@ -199,8 +216,8 @@ class ConversationAgent:
                     response = ' '.join(words)
         
         # Occasionally add ellipsis for thinking (15% chance)
-        if random.random() < 0.15:
-            response = response.replace('.', '...')
+        if random.random() < 0.15 and '.' in response:
+            response = response.replace('.', '...', 1)  # Only replace first occurrence
         
         return response
     
