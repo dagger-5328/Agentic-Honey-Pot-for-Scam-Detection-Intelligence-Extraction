@@ -1,11 +1,11 @@
 version: '3.8'
 
 services:
-  guvi-honeypot-api:
+  scam-honeypot-api:
     build: .
-    container_name: guvi-honeypot
+    container_name: scam-honeypot
     ports:
-      - "8000:8000"
+      - "5000:5000"
     volumes:
       - ./output:/app/output
       - ./logs:/app/logs
@@ -17,7 +17,7 @@ services:
       - PYTHONUNBUFFERED=1
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/health')" ]
+      test: [ "CMD", "python", "-c", "import requests; requests.get('http://localhost:5000/health')" ]
       interval: 30s
       timeout: 10s
       retries: 3

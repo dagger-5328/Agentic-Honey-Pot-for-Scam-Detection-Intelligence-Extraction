@@ -48,7 +48,11 @@
         "prize money",
         "claim now",
         "processing fee",
-        "tax payment"
+        "tax payment",
+        "winner",
+        "prize",
+        "lottery",
+        "claim"
       ],
       "urgency_indicators": [
         "limited time",
@@ -138,7 +142,14 @@
     "limited time offer",
     "act now",
     "confirm your details",
-    "verify your account"
+    "verify your account",
+    "urgent",
+    "immediately",
+    "act fast",
+    "hurry",
+    "now",
+    "expire",
+    "last chance"
   ],
   "legitimate_indicators": [
     "no payment required",

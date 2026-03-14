@@ -1,0 +1,105 @@
+2026-03-14 22:43:51,289 - __main__ - INFO - Using API Simulator
+2026-03-14 22:44:06,367 - main - INFO - Using API Simulator
+2026-03-14 22:44:06,371 - __main__ - INFO - Starting Scam Honeypot API on 0.0.0.0:5000
+2026-03-14 22:44:06,371 - __main__ - INFO - Available endpoints:
+2026-03-14 22:44:06,371 - __main__ - INFO -   GET  /health - Health check
+2026-03-14 22:44:06,371 - __main__ - INFO -   POST /api/v1/detect - Detect scam
+2026-03-14 22:44:06,371 - __main__ - INFO -   POST /api/v1/engage - Engage with scammer
+2026-03-14 22:44:06,371 - __main__ - INFO -   POST /api/v1/extract - Extract intelligence
+2026-03-14 22:44:06,371 - __main__ - INFO -   GET  /api/v1/personas - List personas
+2026-03-14 22:44:06,371 - __main__ - INFO -   GET  /api/v1/scam-types - List scam types
+2026-03-14 22:44:06,384 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.2.10:5000
+2026-03-14 22:44:06,385 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-14 22:44:16,488 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2026 22:44:16] "[33mGET / HTTP/1.1[0m" 404 -
+2026-03-14 22:44:16,687 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2026 22:44:16] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-14 22:56:15,916 - __main__ - INFO - Using API Simulator
+2026-03-14 22:56:32,667 - main - INFO - Using API Simulator
+2026-03-14 22:56:32,670 - __main__ - INFO - Starting Scam Honeypot API on 0.0.0.0:5000
+2026-03-14 22:56:32,670 - __main__ - INFO - Available endpoints:
+2026-03-14 22:56:32,671 - __main__ - INFO -   GET  /health - Health check
+2026-03-14 22:56:32,671 - __main__ - INFO -   POST /api/v1/detect - Detect scam
+2026-03-14 22:56:32,671 - __main__ - INFO -   POST /api/v1/engage - Engage with scammer
+2026-03-14 22:56:32,671 - __main__ - INFO -   POST /api/v1/extract - Extract intelligence
+2026-03-14 22:56:32,671 - __main__ - INFO -   GET  /api/v1/personas - List personas
+2026-03-14 22:56:32,671 - __main__ - INFO -   GET  /api/v1/scam-types - List scam types
+2026-03-14 22:56:32,758 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.2.10:5000
+2026-03-14 22:56:32,758 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-14 22:56:32,759 - werkzeug - INFO -  * Restarting with stat
+2026-03-14 22:56:33,033 - main - INFO - Using API Simulator
+2026-03-14 22:56:33,036 - __main__ - INFO - Starting Scam Honeypot API on 0.0.0.0:5000
+2026-03-14 22:56:33,036 - __main__ - INFO - Available endpoints:
+2026-03-14 22:56:33,037 - __main__ - INFO -   GET  /health - Health check
+2026-03-14 22:56:33,037 - __main__ - INFO -   POST /api/v1/detect - Detect scam
+2026-03-14 22:56:33,037 - __main__ - INFO -   POST /api/v1/engage - Engage with scammer
+2026-03-14 22:56:33,037 - __main__ - INFO -   POST /api/v1/extract - Extract intelligence
+2026-03-14 22:56:33,037 - __main__ - INFO -   GET  /api/v1/personas - List personas
+2026-03-14 22:56:33,037 - __main__ - INFO -   GET  /api/v1/scam-types - List scam types
+2026-03-14 22:56:33,052 - werkzeug - WARNING -  * Debugger is active!
+2026-03-14 22:56:33,054 - werkzeug - INFO -  * Debugger PIN: 196-531-437
+2026-03-14 22:56:38,014 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2026 22:56:38] "[33mGET / HTTP/1.1[0m" 404 -
+2026-03-14 22:58:28,111 - main - INFO - Using API Simulator
+2026-03-14 22:58:28,114 - __main__ - INFO - Starting Scam Honeypot API on 0.0.0.0:5000
+2026-03-14 22:58:28,114 - __main__ - INFO - Available endpoints:
+2026-03-14 22:58:28,114 - __main__ - INFO -   GET  /health - Health check
+2026-03-14 22:58:28,114 - __main__ - INFO -   POST /api/v1/detect - Detect scam
+2026-03-14 22:58:28,114 - __main__ - INFO -   POST /api/v1/engage - Engage with scammer
+2026-03-14 22:58:28,115 - __main__ - INFO -   POST /api/v1/extract - Extract intelligence
+2026-03-14 22:58:28,115 - __main__ - INFO -   GET  /api/v1/personas - List personas
+2026-03-14 22:58:28,115 - __main__ - INFO -   GET  /api/v1/scam-types - List scam types
+2026-03-14 22:58:28,133 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.2.10:5000
+2026-03-14 22:58:28,133 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-14 22:58:28,133 - werkzeug - INFO -  * Restarting with stat
+2026-03-14 22:58:28,423 - main - INFO - Using API Simulator
+2026-03-14 22:58:28,426 - __main__ - INFO - Starting Scam Honeypot API on 0.0.0.0:5000
+2026-03-14 22:58:28,426 - __main__ - INFO - Available endpoints:
+2026-03-14 22:58:28,426 - __main__ - INFO -   GET  /health - Health check
+2026-03-14 22:58:28,427 - __main__ - INFO -   POST /api/v1/detect - Detect scam
+2026-03-14 22:58:28,427 - __main__ - INFO -   POST /api/v1/engage - Engage with scammer
+2026-03-14 22:58:28,427 - __main__ - INFO -   POST /api/v1/extract - Extract intelligence
+2026-03-14 22:58:28,427 - __main__ - INFO -   GET  /api/v1/personas - List personas
+2026-03-14 22:58:28,427 - __main__ - INFO -   GET  /api/v1/scam-types - List scam types
+2026-03-14 22:58:28,442 - werkzeug - WARNING -  * Debugger is active!
+2026-03-14 22:58:28,442 - werkzeug - INFO -  * Debugger PIN: 196-531-437
+2026-03-14 22:59:01,547 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2026 22:59:01] "[33mGET / HTTP/1.1[0m" 404 -
+2026-03-14 22:59:09,715 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2026 22:59:09] "[33mGET / HTTP/1.1[0m" 404 -
+2026-03-14 23:00:18,025 - main - INFO - Using API Simulator
+2026-03-14 23:00:18,028 - __main__ - INFO - Starting Scam Honeypot API on 0.0.0.0:5000
+2026-03-14 23:00:18,028 - __main__ - INFO - Available endpoints:
+2026-03-14 23:00:18,028 - __main__ - INFO -   GET  /health - Health check
+2026-03-14 23:00:18,028 - __main__ - INFO -   POST /api/v1/detect - Detect scam
+2026-03-14 23:00:18,028 - __main__ - INFO -   POST /api/v1/engage - Engage with scammer
+2026-03-14 23:00:18,028 - __main__ - INFO -   POST /api/v1/extract - Extract intelligence
+2026-03-14 23:00:18,029 - __main__ - INFO -   GET  /api/v1/personas - List personas
+2026-03-14 23:00:18,029 - __main__ - INFO -   GET  /api/v1/scam-types - List scam types
+2026-03-14 23:00:18,047 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.2.10:5000
+2026-03-14 23:00:18,047 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-03-14 23:00:18,048 - werkzeug - INFO -  * Restarting with stat
+2026-03-14 23:00:18,342 - main - INFO - Using API Simulator
+2026-03-14 23:00:18,346 - __main__ - INFO - Starting Scam Honeypot API on 0.0.0.0:5000
+2026-03-14 23:00:18,346 - __main__ - INFO - Available endpoints:
+2026-03-14 23:00:18,346 - __main__ - INFO -   GET  /health - Health check
+2026-03-14 23:00:18,346 - __main__ - INFO -   POST /api/v1/detect - Detect scam
+2026-03-14 23:00:18,346 - __main__ - INFO -   POST /api/v1/engage - Engage with scammer
+2026-03-14 23:00:18,346 - __main__ - INFO -   POST /api/v1/extract - Extract intelligence
+2026-03-14 23:00:18,346 - __main__ - INFO -   GET  /api/v1/personas - List personas
+2026-03-14 23:00:18,347 - __main__ - INFO -   GET  /api/v1/scam-types - List scam types
+2026-03-14 23:00:18,367 - werkzeug - WARNING -  * Debugger is active!
+2026-03-14 23:00:18,367 - werkzeug - INFO -  * Debugger PIN: 196-531-437
+2026-03-14 23:00:22,437 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2026 23:00:22] "[33mGET / HTTP/1.1[0m" 404 -
+2026-03-14 23:00:35,651 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2026 23:00:35] "GET /health HTTP/1.1" 200 -
+2026-03-14 23:00:43,024 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2026 23:00:43] "POST /api/v1/detect HTTP/1.1" 200 -
+2026-03-14 23:01:07,020 - main - INFO - Processing message: Congratulations! You won ₹50,000. Pay ₹500 process...
+2026-03-14 23:01:07,020 - main - INFO - Confidence 68% below threshold 70%
+2026-03-14 23:01:07,020 - werkzeug - INFO - 127.0.0.1 - - [14/Mar/2026 23:01:07] "POST /api/v1/engage HTTP/1.1" 200 -

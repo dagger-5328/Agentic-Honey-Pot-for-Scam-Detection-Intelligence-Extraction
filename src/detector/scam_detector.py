@@ -104,15 +104,15 @@ class ScamDetector:
         # Normalize confidence to 0-100 scale
         # Base confidence on pattern matches + red flags - legitimate indicators
         confidence = min(100, int(
-            (raw_score * 15) +  # Pattern matches
-            (len(red_flags_found) * 10) -  # Red flags boost
+            (raw_score * 20) +  # Pattern matches (increased from 15)
+            (len(red_flags_found) * 15) -  # Red flags boost (increased from 10)
             (legitimate_score * 20)  # Legitimate indicators reduce
         ))
         
         # Additional heuristics
-        confidence += self._check_url_patterns(message) * 10
+        confidence += self._check_url_patterns(message) * 15  # Increased from 10
         confidence += self._check_phone_patterns(message) * 8
-        confidence += self._check_urgency_language(message) * 5
+        confidence += self._check_urgency_language(message) * 8  # Increased from 5
         
         confidence = max(0, min(100, confidence))  # Clamp to 0-100
         
@@ -139,6 +139,8 @@ class ScamDetector:
         
         suspicious_score = 0
         for url in urls:
+            # Any URL in a message is suspicious
+            suspicious_score += 1
             # Check for suspicious TLDs or patterns
             if any(tld in url.lower() for tld in ['.tk', '.ml', '.ga', '.cf', '.gq']):
                 suspicious_score += 2
@@ -162,7 +164,8 @@ class ScamDetector:
         """Check for urgent/pressuring language."""
         urgency_words = [
             'urgent', 'immediately', 'now', 'hurry', 'quick',
-            'expire', 'last chance', 'limited time', 'act fast'
+            'expire', 'last chance', 'limited time', 'act fast',
+            'act now', 'urgent action', 'immediate action', 'today'
         ]
         message_lower = message.lower()
         urgency_count = sum(1 for word in urgency_words if word in message_lower)

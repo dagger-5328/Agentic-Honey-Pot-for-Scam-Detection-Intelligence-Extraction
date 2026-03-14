@@ -24,8 +24,8 @@ RUN mkdir -p output logs
 ENV HONEYPOT_API_KEY=change-this-to-a-secure-key
 ENV PYTHONUNBUFFERED=1
 
-# Expose port (GUVI API runs on 8000)
-EXPOSE 8000
+# Expose port (API server runs on 5000, can be changed)
+EXPOSE 5000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \

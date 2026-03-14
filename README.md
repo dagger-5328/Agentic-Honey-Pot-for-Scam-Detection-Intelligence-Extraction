@@ -3,6 +3,8 @@
 ![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
+> **Note**: This project has been cleaned of GUVI hackathon-specific code. The GUVI files have been emptied and are no longer functional.
+
 An autonomous AI honeypot system that detects scam messages and actively engages scammers using believable personas to extract intelligence including bank account details, UPI IDs, and phishing links.
 
 ## 🎯 Features
